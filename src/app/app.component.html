@@ -1,0 +1,43 @@
+<form (ngSubmit)="OnSubmit()" #n="ngForm">
+  <div>username</div>
+  <input type="text" name="username" ngModel id="username" required><br>
+  <div *ngIf="n.submitted && n.controls['username'].errors">
+    <div *ngIf="n.controls['username'].errors['required']">username is required.</div>
+  </div><br><br>
+    
+  
+  <div>email</div>
+  <input type="email" name="email" ngModel id="email" required email><br>
+  <div *ngIf="n.submitted && n.controls['email'].errors">
+    <div *ngIf="n.controls['email'].errors['required']">Email is required.</div>
+    <div *ngIf="n.controls['email'].errors['email']">Email is not valid.</div>
+  </div><br><br>
+    
+      <p>Programming Languages:</p>
+      <label *ngFor="let Language of programmingLanguages"> 
+       
+        <input type="checkbox" name="languages" ngModel [value]="Language" ngModel required>{{ Language }}
+    </label>
+     
+      <div *ngIf="n.submitted && !n.controls['languages'].value">Select at least one programming language.</div>
+    
+      <p>Experience prog:</p>
+      <label *ngFor="let lev of experienceLevels">
+        <input type="radio" name="experience" ngModel [value]="lev" ngModel required>{{ lev }}
+      </label>
+      <br><br>
+      
+    
+      <label for="description">Project Description:</label><br>
+  <textarea name="description" ngModel required minlength="10"></textarea><br>
+  <div *ngIf="n.submitted && n.controls['description'].errors">
+    most be at least 10 charecters
+  </div>
+      <button type="submit" [disabled]="n.invalid">Submit</button>
+    
+    </form>
+    
+    <div *ngIf="submit">
+      <p>Congratulations {{ n.value.username }}!</p>
+      <p>Your programming skills are impressive. Keep up the great work!</p>
+    </div>
